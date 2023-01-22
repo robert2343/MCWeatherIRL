@@ -1,6 +1,5 @@
 package com.example.examplemod;
 
-import com.fazecast.jSerialComm.SerialPort;
 import com.mojang.logging.LogUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.item.BlockItem;
@@ -42,10 +41,6 @@ public class ExampleMod
     public static final RegistryObject<Block> EXAMPLE_BLOCK = BLOCKS.register("example_block", () -> new Block(BlockBehaviour.Properties.of(Material.STONE)));
     // Creates a new BlockItem with the id "examplemod:example_block", combining the namespace and path
     public static final RegistryObject<Item> EXAMPLE_BLOCK_ITEM = ITEMS.register("example_block", () -> new BlockItem(EXAMPLE_BLOCK.get(), new Item.Properties()));
-    
-    public static SerialPort comPort = SerialPort.getCommPorts()[0];
-
-    public static String currentString = "";
 
     public ExampleMod()
     {
@@ -71,9 +66,6 @@ public class ExampleMod
         // Some common setup code
         LOGGER.info("HELLO FROM COMMON SETUP");
         LOGGER.info("DIRT BLOCK >> {}", ForgeRegistries.BLOCKS.getKey(Blocks.DIRT));
-		comPort.openPort();
-		
-        //comPort.closePort();
     }
 
     private void addCreative(CreativeModeTabEvent.BuildContents event)

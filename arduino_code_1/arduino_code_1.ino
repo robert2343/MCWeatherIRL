@@ -21,7 +21,6 @@ int value;
 
 void setup() {
   Serial.begin(9600); 
-  Serial.println("DHTxx test!");
   pinMode(pResistor, INPUT);
  
   dht.begin();
