@@ -35,14 +35,15 @@ public class ModClientEvents {
             	System.out.println(ExampleMod.currentString.substring(0, 28));
             	String humidityValStr = ExampleMod.currentString.substring(10, 15);
             	double humidityPercent = Double.parseDouble(humidityValStr);
-            	if(humidityPercent > 70 && !event.getServer().overworld().isRaining())
+            	if(humidityPercent > 70)
             	{
-            		event.getServer().overworld().rainLevel = 100;
-            		//LOGGER.info("should be raining");
+            		event.getServer().overworld().setRainLevel(Float.MAX_VALUE);
+            		//LOGGER.info("rain");
             	}
-            	else if(humidityPercent <= 70 && event.getServer().overworld().isRaining())
+            	else if(humidityPercent <= 70)
             	{
-            		event.getServer().overworld().rainLevel = -100;
+            		event.getServer().overworld().setRainLevel(Float.MIN_VALUE);
+            		//LOGGER.info("sun");
             	}
             	
             	String lightStr = ExampleMod.currentString.substring(25, 28);
@@ -61,6 +62,9 @@ public class ModClientEvents {
               	ExampleMod.currentString = ExampleMod.currentString.substring(28);
             }
             
-        } catch (Exception e) { e.printStackTrace(); }
+        } catch (Exception e) { 
+        	ExampleMod.currentString = "";
+        	e.printStackTrace(); 
+        }
 	}
 }
