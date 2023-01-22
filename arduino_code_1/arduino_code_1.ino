@@ -50,17 +50,30 @@ void loop() {
   // Must send in temp in Fahrenheit!
   float hi = dht.computeHeatIndex(f, h);
 
-  Serial.print("Humidity: "); 
+  Serial.print("Humidity:\t");
+  if(h < 10)
+  {
+    Serial.print("0");
+  }
   Serial.print(h);
   Serial.print(" %\t");
-  Serial.print("Temperature: "); 
-  Serial.print(t);
-  Serial.print(" *C ");
-  Serial.print(f);
-  Serial.print(" *F\t");
-  Serial.print("Heat index: ");
-  Serial.print(hi);
-  Serial.print(" *F\tLight: ");
+  //Serial.print("Temperature:\t"); 
+  //Serial.print(t);
+  //Serial.print(" *C\t");
+  //Serial.print(f);
+  //Serial.print(" *F\t");
+  //Serial.print("Heat index:\t");
+  //Serial.print(hi);
+  //Serial.print(" *F\t");
+  Serial.print("Light:\t");
+  if(value < 100)
+  {
+    Serial.print("0");
+  }
+  if(value < 10)
+  {
+    Serial.print("0");
+  }
   Serial.println(value);
   
 }

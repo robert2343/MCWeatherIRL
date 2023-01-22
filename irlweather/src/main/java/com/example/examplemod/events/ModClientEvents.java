@@ -10,6 +10,7 @@ import net.minecraftforge.event.TickEvent.ServerTickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
+//https://www.youtube.com/watch?v=fA1K4qEH7cs
 @Mod.EventBusSubscriber(modid=ExampleMod.MODID, bus=Mod.EventBusSubscriber.Bus.FORGE)
 public class ModClientEvents {
     private static final Logger LOGGER = LogUtils.getLogger();
@@ -25,25 +26,39 @@ public class ModClientEvents {
             {
                	ExampleMod.currentString = "";
             }
-            if(ExampleMod.currentString.length() < 80)
+            if(ExampleMod.currentString.length() < 28)
             {
             	ExampleMod.currentString += new String(readBuffer).replaceAll("\n", "").replaceAll("\r", "");
             }
-            if(ExampleMod.currentString.length() >= 80)
+            if(ExampleMod.currentString.length() >= 28)
             {
+            	System.out.println(ExampleMod.currentString.substring(0, 28));
             	String humidityValStr = ExampleMod.currentString.substring(10, 15);
             	double humidityPercent = Double.parseDouble(humidityValStr);
-            	if(humidityPercent > 80 && !event.getServer().overworld().isRaining())
+            	if(humidityPercent > 70 && !event.getServer().overworld().isRaining())
             	{
-            		event.getServer().overworld().oRainLevel = 1;
+            		event.getServer().overworld().rainLevel = 100;
+            		//LOGGER.info("should be raining");
             	}
-            	else if(humidityPercent <= 90 && event.getServer().overworld().isRaining())
+            	else if(humidityPercent <= 70 && event.getServer().overworld().isRaining())
             	{
-            		event.getServer().overworld().oRainLevel = 0;
+            		event.getServer().overworld().rainLevel = -100;
             	}
             	
-             	System.out.println(ExampleMod.currentString.substring(0, 80));
-              	ExampleMod.currentString = ExampleMod.currentString.substring(80);
+            	String lightStr = ExampleMod.currentString.substring(25, 28);
+            	int lightLvl = Integer.parseInt(lightStr);
+            	
+            	if(lightLvl > 500)
+            	{
+            		event.getServer().overworld().setDayTime(6000);
+            	}
+            	else
+            	{
+            		event.getServer().overworld().setDayTime(18000);
+            	}
+            	
+             	
+              	ExampleMod.currentString = ExampleMod.currentString.substring(28);
             }
             
         } catch (Exception e) { e.printStackTrace(); }
